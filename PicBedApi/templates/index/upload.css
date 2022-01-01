@@ -1,0 +1,177 @@
+
+.uploadbackground{
+    z-index: 998;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.507);
+    visibility: hidden;
+    /* transition: 0.2s; */
+}
+.uploadBox{
+    z-index: 9999;
+    position: absolute;
+    /* background-color: rgb(110, 110, 110); */
+    width: 60%;/*  */
+    height: 60%;
+    top: 20%;
+    left: 20%;
+    border-radius: 10px;
+    /* transition: 0.2s; */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.btnBox{
+    position: relative;
+    width: 100%;
+    height: 10%;
+    background-color: rgb(228, 228, 228);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 99;
+}
+
+.file {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    font-size:35px;
+	padding:13px 24px;
+    height: 100%;
+    overflow: hidden;
+    color: #1E88C7;
+    /* transition: 0.2s; */
+    line-height: 30px; 
+
+}
+.file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    
+    /* text-decoration: none; */
+}
+.file:active {
+	position:relative;
+	top:1px;
+}
+.Cancel{
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    z-index: 99;
+    font-size:35px;
+	padding:13px 24px;
+    height: 100%;
+    overflow: hidden;
+    color: #1E88C7;
+    /* transition: 0.2s; */
+    line-height: 30px; 
+}
+.Cancel:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    /* text-decoration: none; */
+}
+.Cancel:active {
+	position:relative;
+	top:1px;
+}
+.dragbox{
+    position: relative;
+    background-color: rgb(78, 78, 78);
+    width: 100%;
+    height: 80%;
+    border: 4px dashed lightblue;
+    text-align: center;
+    line-height: 300px;
+    color: lightgrey;
+    z-index: 999;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fill, 170px);
+    grid-template-rows: repeat(auto-fill, 170px);
+    /* display: flex;
+    flex-direction: row;
+    justify-content:start;
+    flex-wrap:wrap; */
+    overflow-y: scroll;
+    /* align-items:center; */
+}
+.dragbox::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 0px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+.boximg{
+    width: 160px;
+    height: 160px;
+    box-shadow:inset 0px 0px 9px -1px #ebebeb;
+	background-color:transparent;
+	border:1px solid #fffbfa;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items:center;
+    overflow: hidden;
+    transition: 0.2s;
+}
+.boximg:hover{
+    box-shadow:inset 0px 0px 9px -1px #6cddff;
+	background-color:transparent;
+	border:1px solid #5fbfff;
+}
+.boximg img{
+    /* width: 100%; */
+    max-width: 160px;
+    max-height: 160px;
+    height: auto;
+    
+}
+
+.submitbox{
+    position: relative;
+    /* background-color: rgb(51, 255, 0); */
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    overflow: hidden;
+}
+
+.submitbox meter{
+    position: relative;
+    top: -90px;
+    width: 90%;
+    height: 300px;
+}
+meter::-webkit-meter-bar {
+    background: #FFF;
+}
+meter::-webkit-meter-optimum-value {
+    background: linear-gradient(to bottom, #62c462, #51a351);
+}
+meter::-webkit-meter-suboptimum-value {
+    background: linear-gradient(to bottom, #fbb450, #f89406);
+}
+meter::-webkit-meter-even-less-good-value {
+    background: linear-gradient(to bottom, #ee5f5b, #bd362f);
+}
+.submitbox a{
+    position: relative;
+
+}

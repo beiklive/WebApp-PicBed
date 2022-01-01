@@ -1,0 +1,25 @@
+{
+    "网页请求": [{
+        "cmd": "ImgLoad",
+        "count": "需要的图片数",
+        "readyNum" : "已经读取的图片数"
+    }],
+    "服务器返回": [{
+        "cmd": "ImgLoad",
+        "count": "实际发送的图片数",
+        "data": [{
+                "imgName": "xxxxx.(jpg/png/gif)",
+                "index": "在文件列表里的序号"
+            },
+            {
+                "imgName": "xxxxx.(jpg/png/gif)",
+                "index": "在文件列表里的序号"
+            },
+            {
+                "imgName": "xxxxx.(jpg/png/gif)",
+                "index": "在文件列表里的序号"
+            }
+        ]
+    }]
+
+}
