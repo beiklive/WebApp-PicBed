@@ -51,5 +51,14 @@ else
             closeFun
         fi
     fi
+
+    if [ "$1" == "show" ]; then
+        res=`ps -aux | grep -c "python3 $APP_NAME.py"`
+        if [ $res -eq 1 ]; then
+            echo "程序未运行"
+        else
+            echo `ps -aux | grep "python3 $APP_NAME.py"| head -n 1`
+        fi
+    fi
 fi
 # ===================================main========================================

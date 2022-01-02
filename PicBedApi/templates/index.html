@@ -7,8 +7,8 @@
 		<script src="https://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 		
     	<!-- 样式表 -->
-    	<link rel="stylesheet" href="/templates/index/index.css">
-		<link rel="stylesheet" href="/templates/index/upload.css">
+    	<link rel="stylesheet" href="{{ static_url('index/index.css') }}">
+		<link rel="stylesheet" href="{{ static_url('index/upload.css') }}">
 	</head>
  
 	<body>
@@ -39,6 +39,6 @@
 		</div>
 
 	</body>
-	<script src="/index/index.js"></script>
-	<script src="/index/upload.js"></script>
+	<script src="{{ static_url('index/index.js') }}"></script>
+	<script src="{{ static_url('index/upload.js') }}"></script>
 </html>

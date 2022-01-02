@@ -1,8 +1,8 @@
 var box = document.getElementById("ViewBox");
 var height = 190;   //格子高度
-const RequestUrl = "http://110.42.252.237:6360/ImgRequest"
-const ImgUrl = "http://110.42.252.237:6360/img/"
-const thumbUrl = "http://110.42.252.237:6360/thumb/"
+const RequestUrl = "http://beiklive.top:6360/ImgRequest"
+const ImgUrl = "http://beiklive.top:6360/img/"
+const thumbUrl = "http://beiklive.top:6360/thumb/"
 
 window.onload= function(){
 
@@ -26,7 +26,7 @@ function ImageClick(e) {
                         </div>'
 
     up.innerHTML += '		<a href="#" class="closeIcon" onclick="CloseView()">\
-    <img src="Resource/close.png">\
+    <img src="/static/Resource/close.png">\
                         </a>'
     
 

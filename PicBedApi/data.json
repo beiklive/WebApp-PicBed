@@ -20,6 +20,32 @@
                 "index": "在文件列表里的序号"
             }
         ]
-    }]
+    }],
+    "图片信息存储":[
+        {
+            "Name": "uuid",
+            "CreateTime":"YYYYMMDDSS",
+            "Tags":["anima", "adult"],
+            "url":"url"
+        },
+        {
+            "Name": "uuid",
+            "CreateTime":"YYYYMMDDSS",
+            "Tags":["anima", "adult"],
+            "url":"url"
+        },
+        {
+            "Name": "uuid",
+            "CreateTime":"YYYYMMDDSS",
+            "Tags":["anima", "adult"],
+            "url":"url"
+        },
+        {
+            "Name": "uuid",
+            "CreateTime":"YYYYMMDDSS",
+            "Tags":["anima", "adult"],
+            "url":"url"
+        }
+    ]
 
 }

@@ -14,8 +14,6 @@ def LoadDir():
 FileList = []
 FileList = LoadDir()
 
-
-
 def SaveImg(MainPath, name, get):
     img_data = base64.b64decode(get)
     with open(MainPath + name, 'wb') as f:
@@ -55,6 +53,9 @@ def ImgLoadCMD(self):
         Imgid =  m_readyNum + i
         dataDict += [{"imgName" : FileList[Imgid], "index" : str(Imgid)}]
     ReturnDict = {"cmd" : "ImgLoad", "count" : str(m_sendcount), "data": dataDict}
-    # print(ReturnDict)
+
+    print(ReturnDict)
     self.write(json.dumps(ReturnDict))
-        
+    
+def SaveImgInfo(name):
+    print(name)
