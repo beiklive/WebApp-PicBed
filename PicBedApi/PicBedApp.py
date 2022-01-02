@@ -15,6 +15,15 @@ class StaticFileHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
 
+
+class RedirectRequestHandler(tornado.web.RequestHandler):
+    def get(self):
+        Retype = self.get_argument("type")
+        if Retype == 'random':
+            url = ImageModule.GetRandom()
+            print(url)
+        self.redirect(url)
+
 class ImgUploadHandler(tornado.web.RequestHandler):
     # 允许跨域
     def set_default_headers(self):
@@ -59,6 +68,7 @@ def make_app():
     }
     return tornado.web.Application([
         (r"/", MainHandler),
+        (r"/redirect",RedirectRequestHandler),
         (r"/ImgUpload", ImgUploadHandler),
         (r"/ImgRequest",ImgRequestHandler),
         (r"/img/(.*)$", tornado.web.StaticFileHandler, dict(path=settings['img_path'])),
@@ -93,6 +103,7 @@ def CheckDir():
 if __name__ == "__main__":
     try:
         CheckDir()
+        ImageModule.PreLoad()
         app = make_app()
         app.listen(6360)
         print("localhost:6360")

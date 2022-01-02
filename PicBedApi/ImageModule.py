@@ -1,6 +1,11 @@
 from PIL import Image
 import os,base64
 import json
+import time
+import random
+# 程序启动时先读取一次文件列表
+FileList = []
+JsonList = []
 
 def LoadDir():
     file_path = "./thumbnail"
@@ -9,15 +14,33 @@ def LoadDir():
     print("sort finish")
     return dir_list
 
+def PreLoad():
+    FileList = LoadDir()
 
-# 程序启动时先读取一次文件列表
-FileList = []
-FileList = LoadDir()
+def SaveImgInfo(name):
+    with open('ImgData.json', encoding='utf-8') as f:
+        line = f.read()
+        if line == '':
+            JsonList = {'ImageData': [{'Name': 'default', 'CreateTime': 'default', 'Tags': ['default'], 'url': 'default'}]}
+        else:
+            JsonList = json.loads(line)
+        f.close()
+    JsonList['ImageData'] +=[{
+        "Name": name,
+            "CreateTime":time.strftime("%Y-%m-%d %X",time.localtime()),
+            "Tags":["anima", "adult"],
+            "url":"http://beiklive.top:6360/img/"+name
+    }] 
+    file = 'ImgData.json'
+    fp = open(file, 'w')
+    fp.write(json.dumps(JsonList))
+    print(JsonList)
 
 def SaveImg(MainPath, name, get):
     img_data = base64.b64decode(get)
     with open(MainPath + name, 'wb') as f:
         f.write(img_data)
+    SaveImgInfo(name)
     print(name + " save complete")
 
 def SaveThumb(MainPath, ThumbPath, name):
@@ -57,5 +80,16 @@ def ImgLoadCMD(self):
     print(ReturnDict)
     self.write(json.dumps(ReturnDict))
     
-def SaveImgInfo(name):
-    print(name)
+def GetRandom():
+    with open('ImgData.json', encoding='utf-8') as f:
+        line = f.read()
+        if line == '':
+            JsonList = {'ImageData': [{'Name': 'default', 'CreateTime': 'default', 'Tags': ['default'], 'url': 'default'}]}
+        else:
+            JsonList = json.loads(line)
+        f.close()
+    length = len(JsonList['ImageData'])
+    print(length)
+    ran = random.randint(1,length - 1)
+    print(ran)
+    return JsonList['ImageData'][ran]['url']
