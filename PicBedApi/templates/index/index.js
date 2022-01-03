@@ -1,8 +1,10 @@
 var box = document.getElementById("ViewBox");
 var height = 190;   //格子高度
-const RequestUrl = "http://beiklive.top:6360/ImgRequest"
-const ImgUrl = "http://beiklive.top:6360/img/"
-const thumbUrl = "http://beiklive.top:6360/thumb/"
+var yourip = "beiklive.top"
+
+const RequestUrl = "http://"+yourip+":6360/ImgRequest"
+const ImgUrl = "http://"+yourip+":6360/img/"
+const thumbUrl = "http://"+yourip+":6360/thumb/"
 
 window.onload= function(){
 

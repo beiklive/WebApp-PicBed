@@ -1,5 +1,6 @@
 var fileList = [];
 var progressbar = 1;
+var yourip = "beiklive.top";
 
 function uploadImg(){
     var up = document.getElementById("uppp");
@@ -40,6 +41,7 @@ function upCancel(){
 
 function CloseView(){
     var up = document.getElementById("uppp");
+    console.log("close");
     fileList = [];
     up.style.cssText = "visibility:hidden;";
     up.innerHTML = ' ';
@@ -110,7 +112,7 @@ function submit(){
         
                 //console.log(base64Str)
         $.ajax({
-            url: "http://beiklive.top:6360/ImgUpload",
+            url: "http://"+ yourip +":6360/ImgUpload",
             data: {
                 "type":typename,
                 "base64file": base64Str
@@ -159,7 +161,7 @@ function sendfile(file) {
 //文件上传
 function upload(binary){
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://beiklive.top/ImgUpload:6360");
+    xhr.open("POST", "http://"+ yourip +"/ImgUpload:6360");
     xhr.overrideMimeType("application/octet-stream");
     //直接发送二进制数据
     if(xhr.sendAsBinary){
