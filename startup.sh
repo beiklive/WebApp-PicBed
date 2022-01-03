@@ -30,6 +30,7 @@ if [ $# -eq 0 ]; then
     echo "[help]"
     echo "./startup.sh close    [关闭程序] "
     echo "./startup.sh start    [启动/重启程序] "
+    echo "./startup.sh show    [显示程序进程信息] "
 else
     if [ "$1" == "start" ]; then
         res=`ps -aux | grep -c "python3 $APP_NAME.py"`
@@ -60,5 +61,18 @@ else
             echo `ps -aux | grep "python3 $APP_NAME.py"| head -n 1`
         fi
     fi
+
+    if [ "$1" == "clean" ]; then
+        echo "正在清理..."
+        cd PicBedApi
+        echo "正在清理api数据"
+        rm ImgData.json
+        echo "正在清理图片数据"
+        rm -rf imgSource
+        echo "正在清理略缩图"
+        rm -rf thumbnail
+        echo "清理完成，请重启服务"
+    fi
+    
 fi
 # ===================================main========================================
