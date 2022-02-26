@@ -31,6 +31,7 @@ if [ $# -eq 0 ]; then
     echo "./startup.sh close    [关闭程序] "
     echo "./startup.sh start    [启动/重启程序] "
     echo "./startup.sh show    [显示程序进程信息] "
+    echo "./startup.sh clean    [清理图片] "
 else
     if [ "$1" == "start" ]; then
         res=`ps -aux | grep -c "python3 $APP_NAME.py"`
