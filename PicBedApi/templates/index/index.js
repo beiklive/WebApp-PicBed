@@ -1,5 +1,9 @@
 var box = document.getElementById("ViewBox");
-var height = 190;   //格子高度
+var height = 200;   //格子高度
+var ItemHeight = 200;   //格子高度
+
+var requestNum = 30;
+var g_readyNum = 0;
 var yourip = "beiklive.top"
 
 const RequestUrl = "http://"+yourip+":6360/ImgRequest"
@@ -44,18 +48,24 @@ function FirstQuest(params) {
 	var clientHeight = box.clientHeight;  // 界面高度
     var clientWidth = box.clientWidth;  //界面宽度
 
-    var colcount = parseInt(clientWidth / height);      //能看到的列数
-    var RowCount = Math.ceil(clientHeight / height);
-    var requestNum = (RowCount + 1) * colcount;  //请求图片的数量
-    console.log("colcount:" + colcount);
-    console.log("RowCount:" + RowCount);
-    console.log("need:" + requestNum)
+    if (clientHeight <= 700) {
+        ItemHeight = 130;
+    }else{
+        ItemHeight = 200;
+    }
+
+    // var colcount = parseInt(clientWidth / ItemHeight);      //能看到的列数
+    // var RowCount = Math.ceil(clientHeight / ItemHeight);
+    // var requestNum = (RowCount + 1) * colcount;  //请求图片的数量
+    // console.log("colcount:" + colcount);
+    // console.log("RowCount:" + RowCount);
+    // console.log("need:" + requestNum)
     $.ajax({
         url: RequestUrl,
         data: {
             "cmd": "ImgLoad",
             "count": requestNum,
-            "readyNum" : "0"
+            "readyNum" : g_readyNum
         },
         withCredentials: false,
         type: "get",
@@ -69,7 +79,7 @@ function FirstQuest(params) {
                 box.innerHTML = box.innerHTML + '<div class="imgItem"><img src="'+ thumbUrl + name +'" onclick="ImageClick(this)" data-index='+name+'>\
                             <marquee><span style="font-weight: bolder;font-size: 15px;color: white;">'+index+'.jpg</span></marquee>\
                         </div>';
-        
+                        g_readyNum = g_readyNum + 1;
             }
             var imagesList = document.getElementsByClassName("imgItem");
             var length = imagesList.length; // 一共有多少张图片
@@ -79,15 +89,15 @@ function FirstQuest(params) {
             var colcount = parseInt(clientWidth / height);      //能看到的列数
             var totalRow = Math.ceil(length / colcount);        //总行数
 
-            box.style.cssText="grid-template-rows: repeat(" + totalRow + ", 190px);"
+            // box.style.cssText="grid-template-rows: repeat(" + totalRow + ", 200px);"
             console.log("Load finish")
         }
     })
 }
 
-//第一次加载请求数据
+//一次加载请求数据
 function onceQuest(requestNum, readyNum) {
-    console.log("need:" + requestNum)
+    console.log("requestNum:" + requestNum)
     console.log("readyNum:" + readyNum)
 
     $.ajax({
@@ -102,14 +112,14 @@ function onceQuest(requestNum, readyNum) {
         success: function (res) {
             console.log("success")
             var res_Json = JSON.parse(res);
-            console.log(res_Json.data)
+            // console.log(res_Json.data)
             for(var j = 0; j < res_Json.count; j++){
                 let name = res_Json.data[j].imgName;
                 let index = res_Json.data[j].index
                 box.innerHTML = box.innerHTML + '<div class="imgItem"><img src="'+ thumbUrl + name +'" onclick="ImageClick(this)" data-index='+name+'>\
                             <marquee><span style="font-weight: bolder;font-size: 15px;color: white;">'+index+'.jpg</span></marquee>\
                         </div>';
-        
+                        g_readyNum = g_readyNum + 1;
             }
             var imagesList = document.getElementsByClassName("imgItem");
             var length = imagesList.length; // 一共有多少张图片
@@ -119,7 +129,7 @@ function onceQuest(requestNum, readyNum) {
             var colcount = parseInt(clientWidth / height);      //能看到的列数
             var totalRow = Math.ceil(length / colcount);        //总行数
 
-            box.style.cssText="grid-template-rows: repeat(" + totalRow + ", 190px);"
+            // box.style.cssText="grid-template-rows: repeat(" + totalRow + ", 200px);"
             console.log("Load finish")
         }
     })
@@ -128,22 +138,27 @@ function onceQuest(requestNum, readyNum) {
 
 function srollformat() {
 
+    var box = document.getElementById("ViewBox");
 
-    var imagesList = document.getElementsByClassName("imgItem");
-    var length = imagesList.length; // 一共有多少张图片
+    // var imagesList = document.getElementsByClassName("imgItem");
+    // var length = imagesList.length; // 一共有多少张图片
 
-	var clientHeight = box.clientHeight;  // 界面高度
-    var clientWidth = box.clientWidth;  //界面宽度
+	// var clientHeight = box.clientHeight;  // 界面高度
+    // var clientWidth = box.clientWidth;  //界面宽度
 
-    var colcount = parseInt(clientWidth / height);      //能看到的列数
+    // var colcount = parseInt(clientWidth / height);      //能看到的列数
 
-    var top = imagesList[length - 1].getBoundingClientRect().top;
-    var lastTop = imagesList[length - 1].getBoundingClientRect().bottom;
-    var totalRow = Math.ceil(length / colcount);        //总行数
+    // var top = imagesList[length - 1].getBoundingClientRect().top;
+    // var lastTop = imagesList[length - 1].getBoundingClientRect().bottom;
+    // var totalRow = Math.ceil(length / colcount);        //总行数
 
-    box.style.cssText="grid-template-rows: repeat(" + totalRow + ", 190px);"
-    if (clientHeight > lastTop || clientHeight > top) {
-        onceQuest(colcount*3, length)
+    // box.style.cssText="grid-template-rows: repeat(" + totalRow + ", 200px);"
+
+    let st = box.scrollTop;  //已经卷上去的高度
+    let ct = box.clientHeight;   //该元素当前的视窗高度
+    let sh = box.scrollHeight;  //该元素的总高度
+    if (st + ct >= sh) {
+        onceQuest(requestNum, g_readyNum)
     }
     // console.log("========");
     // console.log("clientHeight + height:"+ (clientHeight + height))
@@ -152,7 +167,10 @@ function srollformat() {
     // console.log("col:" + colcount);
     // console.log("row:" + RowCount);
     // console.log("totalrow:" + totalRow);
+    
 
 
+    // var clientHeight = box.clientHeight;  // 界面高度
+    // console.log("st:" + st + "   ct:" + ct + "   sh:" + sh);
 
 }

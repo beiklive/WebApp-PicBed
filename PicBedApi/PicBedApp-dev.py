@@ -105,8 +105,8 @@ if __name__ == "__main__":
         CheckDir()
         ImageModule.PreLoad()
         app = make_app()
-        app.listen(6360)
-        print("localhost:6360")
+        app.listen(8830)
+        print("localhost:8830")
         tornado.ioloop.IOLoop.current().start()
     except KeyboardInterrupt:
         print("\nSee You !!!")

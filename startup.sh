@@ -1,6 +1,6 @@
 #! /bin/bash
 APP_DIR="./PicBedApi/"
-APP_NAME="PicBedApp"
+APP_NAME="PicBedApp-dev"
 
 startFun(){
     echo "正在启动程序..."
