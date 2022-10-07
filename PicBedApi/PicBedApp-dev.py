@@ -6,6 +6,13 @@ import uuid
 
 import ImageModule
 
+def ReadConfig(index):
+    with open('./templates/config.json', 'r') as f:
+        config = json.load(f)
+        if index == 1:
+            return config['port']
+        if index == 2:
+            return config['passwd']
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -57,6 +64,12 @@ class ImgRequestHandler(tornado.web.RequestHandler):
         if m_cmd == "ImgLoad":
             print("get tequest: " + m_cmd)
             ImageModule.ImgLoadCMD(self)
+        elif m_cmd == "Login":
+            pw = self.get_argument("pw")
+            if pw == ReadConfig(2):
+                self.write("<li class=\"nav-item\"><a class=\"nav-link text-muted\" href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#myModal\"><i class=\"fa fa-cloud-upload\"></i>上传</a></li>")
+            else:
+                self.write("error")
 
 def make_app():
     settings = {
@@ -105,8 +118,9 @@ if __name__ == "__main__":
         CheckDir()
         ImageModule.PreLoad()
         app = make_app()
-        app.listen(8830)
-        print("localhost:8830")
+        port = ReadConfig(1)
+        app.listen(port)
+        print("please open url :  localhost:" + str(port))
         tornado.ioloop.IOLoop.current().start()
     except KeyboardInterrupt:
         print("\nSee You !!!")

@@ -5,15 +5,34 @@
     <meta charset="UTF-8">
     <title>beik图床</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ static_url('Resource/logo.png') }}" />
     <script src="{{ static_url('cdn/jquery.min.js') }}"></script>
     <!-- 新 Bootstrap5 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
     <!-- 样式表 -->
     <link rel="stylesheet" href="{{ static_url('index/index.css') }}">
     <link rel="stylesheet" href="{{ static_url('index/upload.css') }}">
+    <script>
+        var RequestInfo = "";
+        var RequestUrl = "";
+        var ImgUrl = "";
+        var thumbUrl = "";
+        
+        $.getJSON("{{ static_url('config.json') }}", function(data) {
+            //data 代表读取到的json中的数据
+            RequestInfo = data["url"];
+            document.title = data["title"];
+        });
+        window.onload = function () {
+            Init()
+            FirstQuest();
+        };
+    </script>
 </head>
 
 <body>
@@ -22,18 +41,15 @@
         <nav class="navbar navbar-expand d-nav">
             <!-- Brand/logo -->
             <a class="navbar-brand" href="#">
-                <img src="http://beiklive.top:6364/redirect?type=random" alt="logo" style="width:40px;">
+                <img src="{{ static_url('Resource/logo.png') }}" alt="logo" style="width:40px;">
                 <span>beiklive图床</span>
             </a>
 
             <!-- Links -->
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" id="nav-func">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="uploadImg()" data-bs-toggle="modal"
-                        data-bs-target="#myModal">上传</a>
-                </li>
-                <li class="nav-item title-right">
-                    <a class="nav-link" href="#">登录</a>
+                    <a class="nav-link text-muted" href="#" data-bs-toggle="modal" data-bs-target="#myModal3"><i
+                            class="fa fa-registered"></i>登录</a>
                 </li>
 
             </ul>
@@ -42,17 +58,15 @@
 
         <!-- 相册 -->
         <div id="ViewBox" onscroll="srollformat()">
-            <!-- <div class="imgItem">
-				<img src="./index/img/1.jpg">
-				<marquee><span style="font-weight: bolder;font-size: 15px;color: white;">1.jpg</span></marquee>
-			</div> -->
+
+        </div>
+        <!-- 提示框 -->
+        <div id="mytips">
+
         </div>
 
 
-
-
-
-        <!-- 模态框 -->
+        <!-- 预览模态框 -->
         <div class="modal fade" id="myModal2">
             <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
@@ -71,8 +85,31 @@
             </div>
         </div>
 
+        <!-- 登录模态框 -->
+        <div class="modal fade" id="myModal3">
+            <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
 
-        <!-- 模态框 -->
+                    <!-- 模态框头部 -->
+                    <div class="modal-header">
+                        <h4 class="modal-title text-info">输入密码</h4>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    </div>
+
+                    <!-- 模态框内容 -->
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="LoginPW" placeholder="Password">
+                    </div>
+                    <!-- 模态框底部 -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                            onclick="LoginCheck()">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 上传模态框 -->
         <div class="modal fade" id="myModal">
             <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">

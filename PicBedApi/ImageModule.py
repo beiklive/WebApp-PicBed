@@ -7,6 +7,13 @@ import random
 FileList = []
 JsonList = []
 
+def ReadConfig():
+    with open('./templates/config.json', 'r') as f:
+        config = json.load(f)
+        return config['url']
+
+
+
 def LoadDir():
     file_path = "./thumbnail"
     dir_list = os.listdir(file_path)
@@ -29,7 +36,7 @@ def SaveImgInfo(name):
         "Name": name,
             "CreateTime":time.strftime("%Y-%m-%d %X",time.localtime()),
             "Tags":["anima", "adult"],
-            "url":"http://beiklive.top:8830/img/"+name
+            "url": ReadConfig() + "/img/"+name
     }] 
     file = 'ImgData.json'
     fp = open(file, 'w')
