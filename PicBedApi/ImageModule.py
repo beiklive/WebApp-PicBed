@@ -29,7 +29,7 @@ def SaveImgInfo(name):
         "Name": name,
             "CreateTime":time.strftime("%Y-%m-%d %X",time.localtime()),
             "Tags":["anima", "adult"],
-            "url":"http://beiklive.top:6360/img/"+name
+            "url":"http://beiklive.top:8830/img/"+name
     }] 
     file = 'ImgData.json'
     fp = open(file, 'w')

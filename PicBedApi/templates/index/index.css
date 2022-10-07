@@ -195,4 +195,9 @@ body{
 
         
     }
+    .dragbox{
+        grid-template-columns: repeat(auto-fill, var(--small-item-size));
+        grid-template-rows: repeat(auto-fill, var(--small-item-size));
+    }
+
 }

@@ -7,7 +7,8 @@
     top: 0;
     left: 0;
     background-color: rgba(255, 255, 255, 0.507);
-    visibility: hidden;
+    display: none;
+    
     /* transition: 0.2s; */
 }
 .uploadBox{
@@ -34,6 +35,40 @@
     flex-direction: row;
     justify-content: space-between;
     z-index: 99;
+}
+
+.modal-content{
+    background-color: rgba(26, 26, 26, 0.507);
+    height: 50%;
+}
+.modal-footer{
+    position: relative;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+.progress{
+    width: 75%;
+    height: 20px;
+    margin-left: 2%;
+    
+}
+
+.d-submit{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.d-submit button{
+    width: 100%;
 }
 
 .file {
@@ -93,9 +128,9 @@
 }
 .dragbox{
     position: relative;
-    background-color: rgb(78, 78, 78);
+    /* background-color: rgb(78, 78, 78); */
     width: 100%;
-    height: 80%;
+    height: 100%;
     border: 4px dashed lightblue;
     text-align: center;
     line-height: 300px;
@@ -105,10 +140,9 @@
     justify-items: center;
     grid-template-columns: repeat(auto-fill, 170px);
     grid-template-rows: repeat(auto-fill, 170px);
-    /* display: flex;
-    flex-direction: row;
-    justify-content:start;
-    flex-wrap:wrap; */
+    justify-content:center;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
     overflow-y: scroll;
     /* align-items:center; */
 }

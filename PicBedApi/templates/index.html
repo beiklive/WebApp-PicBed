@@ -29,7 +29,8 @@
             <!-- Links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#"  onclick="uploadImg()">上传</a>
+                    <a class="nav-link" href="#" onclick="uploadImg()" data-bs-toggle="modal"
+                        data-bs-target="#myModal">上传</a>
                 </li>
                 <li class="nav-item title-right">
                     <a class="nav-link" href="#">登录</a>
@@ -49,10 +50,63 @@
 
 
 
-        <!-- 弹出层 -->
-        <div class="uploadbackground" id="uppp">
 
+
+        <!-- 模态框 -->
+        <div class="modal fade" id="myModal2">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+
+                    <!-- 模态框头部 -->
+                    <div class="modal-header">
+                        <h4 class="modal-title text-info">图片预览</h4>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    </div>
+
+                    <!-- 模态框内容 -->
+                    <div class="modal-body" id="uppp">
+
+                    </div>
+                </div>
+            </div>
         </div>
+
+
+        <!-- 模态框 -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+
+                    <!-- 模态框头部 -->
+                    <div class="modal-header">
+                        <h4 class="modal-title text-info">图片上传</h4>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            onclick="upCancel()">关闭</button>
+                    </div>
+
+                    <!-- 模态框内容 -->
+                    <div class="modal-body">
+                        <input type="file" name="" id="file-input" multiple accept="image/*"
+                            style="visibility: hidden;">
+                        <div class="dragbox" id="imgdragbox" onclick="EmitFileUpload()">
+                        </div>
+                    </div>
+
+                    <!-- 模态框底部 -->
+                    <div class="modal-footer">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressbar"
+                                style="width:0%"></div>
+                        </div>
+                        <div class="d-submit">
+                            <button type="button" class="btn btn-outline-success" onclick="submit()">上传</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 <script src="{{ static_url('index/index.js') }}"></script>
