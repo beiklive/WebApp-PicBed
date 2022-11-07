@@ -22,11 +22,19 @@
         var RequestUrl = "";
         var ImgUrl = "";
         var thumbUrl = "";
-        
+        var useCos = "";
+        var Bucket = "";
+        var region = "";
         $.getJSON("{{ static_url('config.json') }}", function(data) {
             //data 代表读取到的json中的数据
             RequestInfo = data["url"];
             document.title = data["title"];
+            useCos = data["useCos"];
+            console.log("useCos :" + useCos);
+            if(useCos == "true"){
+                Bucket = data["Bucket"];
+                region = data["region"];
+            }
         });
         window.onload = function () {
             Init()

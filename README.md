@@ -12,30 +12,34 @@
 
 # 使用
 
-## 配置修改
+## 环境安装
+
+`python >= 3.6`
+
+```bash
+pip3 install tornado # web驱动
+pip3 install -U cos-python-sdk-v5   # https://cloud.tencent.com/document/product/436/12269
+```
+
+
+
+## 初始配置修改（必须修改！！！）
 
 1. 修改`WebApp-PicBed\PicBedApi\templates\config.json`
 
-    ```json
-    {
-        "url" : "http://example.com:8080",
-        "title" : "图床",
-        "port": 8080,
-        "passwd" : "12345678"
-    }
-    ```
-
-    `url`为网页向服务器发送请求的地址，一般就是服务器ip/域名+端口号
-
-    `title`为网页的标题 
-
-    `port`为程序的启动端口，`url`的端口需要与该`port`一致
-
-    `passwd`为前端页面的登录密码，需要登录状态才能进行上传操作
+    | Key    | Type     | Value                                                        |
+    | ------ | -------- | ------------------------------------------------------------ |
+    | url    | `string` | 启动后服务的地址，如：`http://picture.xxx.com `  或者   `127.0.0.1:8080` |
+    | title  | `string` | 网站标题栏名称                                               |
+    | port   | `number` | 服务的端口号                                                 |
+    | passwd | `string` | 默认进入服务是未登录状态，使用该密码登录                     |
+    | useCos | `string` | 是否使用腾讯云cos，为true时是使用，填写任意其他字符为不使用，会使用服务本地存储 |
+    | Bucket | `string` | 腾讯对象存储桶名称                                           |
+    | region | `string` | 存储桶所属地区如： `ap-beijing`                              |
 
 2. 修改log图标
 
-   替换`WebApp-PicBed\PicBedApi\templates\Resource\logo.png`文件即可
+​		替换`WebApp-PicBed\PicBedApi\templates\Resource\logo.png`文件即可
 
 ## 启动
 
@@ -64,8 +68,12 @@
 ![image-20221007225804288](img/image-20221007225804288.png)
 
 
-# 已有功能
-1. 上传图片
-2. 随机获取相册已存的图片
-    > http://img.example.com/redirect?type=random
+# 功能
+- [x] 图片上传
+- [x] 随机图片： url + `/redirect?type=random`
 
+​			http://img.example.com/redirect?type=random
+
+- [ ] 登录（目前的登录没有安全性可言）
+- [ ] 删除图片
+- [ ] GitPage托管

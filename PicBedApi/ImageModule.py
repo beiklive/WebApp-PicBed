@@ -3,6 +3,8 @@ import os,base64
 import json
 import time
 import random
+
+import ObjectCos
 # 程序启动时先读取一次文件列表
 FileList = []
 JsonList = []
@@ -37,7 +39,7 @@ def SaveImgInfo(name):
             "CreateTime":time.strftime("%Y-%m-%d %X",time.localtime()),
             "Tags":["anima", "adult"],
             "url": ReadConfig() + "/img/"+name
-    }] 
+    }]
     file = 'ImgData.json'
     fp = open(file, 'w')
     fp.write(json.dumps(JsonList))
@@ -47,6 +49,7 @@ def SaveImg(MainPath, name, get):
     img_data = base64.b64decode(get)
     with open(MainPath + name, 'wb') as f:
         f.write(img_data)
+    ObjectCos.TxCosUpload(name, MainPath)
     SaveImgInfo(name)
     print(name + " save complete")
 
@@ -59,12 +62,13 @@ def SaveThumb(MainPath, ThumbPath, name):
             h = h * ImgSize / w
             w = ImgSize
         else:
-            w = w * ImgSize / h 
-            h = ImgSize 
+            w = w * ImgSize / h
+            h = ImgSize
     h = int(h)
     w = int(w)
     image_size = image.resize((w, h), Image.ANTIALIAS)
     image_size.save(ThumbPath + name)
+    ObjectCos.TxCosUpload(name, ThumbPath)
     FileList = LoadDir()
 
 def ImgLoadCMD(self):
@@ -76,8 +80,6 @@ def ImgLoadCMD(self):
     # 当数量不足时
     if ListLength - m_readyNum < m_count:
         m_sendcount = ListLength - m_readyNum
-    
-    
     dataDict = []
     for i in range(m_sendcount):
         Imgid =  m_readyNum + i
@@ -86,7 +88,7 @@ def ImgLoadCMD(self):
 
     print(ReturnDict)
     self.write(json.dumps(ReturnDict))
-    
+
 def GetRandom():
     with open('ImgData.json', encoding='utf-8') as f:
         line = f.read()
@@ -99,4 +101,5 @@ def GetRandom():
     print(length)
     ran = random.randint(1,length - 1)
     print(ran)
-    return JsonList['ImageData'][ran]['url']
+    return ObjectCos.GetUrl() + JsonList['ImageData'][ran]['Name']
+

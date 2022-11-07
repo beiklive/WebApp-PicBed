@@ -2,5 +2,8 @@
     "url" : "http://example.com:8080",
     "title" : "图床",
     "port": 8080,
-    "passwd" : "12345678"
+    "passwd" : "12345678",
+    "useCos" : "true",
+    "Bucket" : "beiklive-picbed-1-1306865739",
+    "region" : "ap-nanjing"
 }

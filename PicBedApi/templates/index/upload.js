@@ -79,7 +79,7 @@ function submit() {
     var imglist = document.getElementsByClassName("imgInfo");
     // var imglist = fileList;
     // console.log(imglist.length);
-    progressValue.max = imglist.length - 1;
+    progressValue.max = imglist.length;// - 1;
     progressValue.value = 0;
     setProcess(0);
     for (var i = 0; i < imglist.length; i++) {
@@ -102,13 +102,20 @@ function submit() {
                     progressValue.value += 1;
                     setProcess(parseInt((progressValue.value / progressValue.max) * 100));
                 }
+                console.log("progressValue.value : " + progressValue.value)
+                console.log("progressValue.max : " + progressValue.max)
+                if (progressValue.value == progressValue.max) {
+                    MyTips("success", "上传完成");
+                    var box = document.getElementById("imgdragbox");
+                    box.innerHTML = " ";
+                    // setProcess(0);
+
+                    //清空上传列表
+                    fileList = [];
+                }
             },
         });
     }
-    var box = document.getElementById("imgdragbox");
-    box.innerHTML = " ";
-    setProcess(0);
-    MyTips("success", "上传完成");
-    //清空上传列表
-    fileList = [];
+
 }
+

@@ -4,15 +4,16 @@ var ItemHeight = 200; //格子高度
 var requestNum = 30;
 var g_readyNum = 0;
 
-RequestUrl = RequestInfo + "/ImgRequest";
-ImgUrl = RequestInfo + "/img/";
-thumbUrl = RequestInfo + "/thumb/";
-
-
-
-
-
 function Init() {
+    RequestUrl = RequestInfo + "/ImgRequest";
+    console.log("useCos : " + useCos);
+    if (useCos == "true") {
+        ImgUrl = "https://" + Bucket + ".cos." + region + ".myqcloud.com/imgSource/";
+        thumbUrl = "https://" + Bucket + ".cos." + region + ".myqcloud.com/thumbnail/";
+    } else {
+        ImgUrl = RequestInfo + "/img/";
+        thumbUrl = RequestInfo + "/thumb/";
+    }
     let getcook = getCookie("LoginData");
     if (getcook != null) {
         let btn = document.getElementById("nav-func");
@@ -174,7 +175,7 @@ function LoginCheck() {
                 let btn = document.getElementById("nav-func");
                 btn.innerHTML = res;
                 MyTips("success", "登录成功");
-                setCookie("LoginData",res,"d30");
+                setCookie("LoginData", res, "d30");
             } else {
                 MyTips("danger", "登录失败，密码错误");
             }
@@ -199,43 +200,43 @@ function MyTips(type, data) {
 
 // cookie
 //////写入COOKIE
-function setCookie(name,value,time){
+function setCookie(name, value, time) {
     var strsec = getsec(time);
     var exp = new Date();
-    exp.setTime(exp.getTime() + strsec*1);
-    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+    exp.setTime(exp.getTime() + strsec * 1);
+    document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
 }
 
 //////读取COOKIE
-function getCookie(name){
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-    if(arr=document.cookie.match(reg))
-    return unescape(arr[2]);
+function getCookie(name) {
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    if (arr = document.cookie.match(reg))
+        return unescape(arr[2]);
     else
-    return null;
+        return null;
 }
 
 
 ////////COOKIE生存时间
-function getsec(str)
-{
-var str1=str.substring(1,str.length)*1;
-var str2=str.substring(0,1);
-    if (str2=="s"){
-        return str1*1000;
-    }else if (str2=="h"){
-        return str1*60*60*1000;
-    }else if (str2=="d"){
-        return str1*24*60*60*1000;
+function getsec(str) {
+    var str1 = str.substring(1, str.length) * 1;
+    var str2 = str.substring(0, 1);
+    if (str2 == "s") {
+        return str1 * 1000;
+    } else if (str2 == "h") {
+        return str1 * 60 * 60 * 1000;
+    } else if (str2 == "d") {
+        return str1 * 24 * 60 * 60 * 1000;
     }
 }
 
 ////删除COOKIE
-function delCookie(name){
+function delCookie(name) {
     var exp = new Date();
     exp.setTime(exp.getTime() - 1);
-    var cval=getCookie(name);
-    if(cval!=null)
-    document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+    var cval = getCookie(name);
+    if (cval != null)
+        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }
+
 
