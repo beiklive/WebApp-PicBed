@@ -109,5 +109,5 @@ def GetRandom():
     # print(length)
     ran = random.randint(1,length - 1)
     # print(ran)
-    return ObjectCos.GetUrl() + Namelist[ran]
+    return ObjectCos.GetUrl() + "/" + Namelist[ran]
 

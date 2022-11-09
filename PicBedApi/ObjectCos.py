@@ -43,7 +43,7 @@ def TxCosUpload(filename, path):
 
 def GetUrl():
     url = ''
-    if ReadCosConfig() == "true":
+    if ReadCosConfig() != "false":
         url = "https://"+ bucket +".cos."+ region +".myqcloud.com/imgSource/"
     else:
         url = configRead.ReadElem("Server", "WebSite")
