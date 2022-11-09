@@ -10,7 +10,10 @@ function Init() {
     if (useCos == "true") {
         ImgUrl = "https://" + Bucket + ".cos." + region + ".myqcloud.com/imgSource/";
         thumbUrl = "https://" + Bucket + ".cos." + region + ".myqcloud.com/thumbnail/";
-    } else {
+    } else if(useCos == "auto"){
+        ImgUrl = "https://" + Bucket + ".cos." + region + ".myqcloud.com/imgSource/";
+        thumbUrl = RequestInfo + "/thumb/";
+    } else{
         ImgUrl = RequestInfo + "/img/";
         thumbUrl = RequestInfo + "/thumb/";
     }
@@ -71,16 +74,11 @@ function FirstQuest(params) {
                 let index = res_Json.data[j].index;
                 box.innerHTML =
                     box.innerHTML +
-                    '<div class="imgItem"  data-bs-toggle="modal" data-bs-target="#myModal2"><img src="' +
-                    thumbUrl +
-                    name +
-                    '" onclick="ImageClick(this)" data-index=' +
-                    name +
-                    '>\
-                    <marquee><span style="font-weight: bolder;font-size: 15px;color: white;">' +
-                    index +
-                    ".jpg</span></marquee>\
-                        </div>";
+                    '<div class="imgItem"  data-bs-toggle="modal" data-bs-target="#myModal2" onclick="ImageClick(this)" data-index=' + name +'>' +
+                        '<img src="' +thumbUrl + name +'">' +
+                        '<marquee><span style="font-weight: bolder;font-size: 15px;color: white;">' +name +'</span></marquee>' +
+                    '</div>';
+
                 g_readyNum = g_readyNum + 1;
             }
             var imagesList = document.getElementsByClassName("imgItem");
@@ -120,16 +118,10 @@ function onceQuest(requestNum, readyNum) {
                 let index = res_Json.data[j].index;
                 box.innerHTML =
                     box.innerHTML +
-                    '<div class="imgItem" data-bs-toggle="modal" data-bs-target="#myModal2"><img src="' +
-                    thumbUrl +
-                    name +
-                    '" onclick="ImageClick(this)" data-index=' +
-                    name +
-                    '>\
-                            <marquee><span style="font-weight: bolder;font-size: 15px;color: white;">' +
-                    index +
-                    ".jpg</span></marquee>\
-                        </div>";
+                    '<div class="imgItem"  data-bs-toggle="modal" data-bs-target="#myModal2" onclick="ImageClick(this)" data-index=' + name +'>' +
+                        '<img src="' +thumbUrl + name +'">' +
+                        '<marquee><span style="font-weight: bolder;font-size: 15px;color: white;">' +name +'</span></marquee>' +
+                    '</div>';
                 g_readyNum = g_readyNum + 1;
             }
             var imagesList = document.getElementsByClassName("imgItem");

@@ -5,14 +5,13 @@ import os,base64
 import uuid
 
 import ImageModule
+import configRead
 
 def ReadConfig(index):
-    with open('./templates/config.json', 'r') as f:
-        config = json.load(f)
-        if index == 1:
-            return config['port']
-        if index == 2:
-            return config['passwd']
+    if index == 1:
+        return configRead.ReadElem("Server", "port")
+    if index == 2:
+        return configRead.ReadElem("Admin", "Passwd")
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -49,7 +48,7 @@ class ImgUploadHandler(tornado.web.RequestHandler):
         ImageModule.SaveThumb("./imgSource/", "./thumbnail/", name)
 
         self.write("complete")
-        
+
 class ImgRequestHandler(tornado.web.RequestHandler):
         # 允许跨域
     def set_default_headers(self):
@@ -70,6 +69,8 @@ class ImgRequestHandler(tornado.web.RequestHandler):
                 self.write("<li class=\"nav-item\"><a class=\"nav-link text-muted\" href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#myModal\"><i class=\"fa fa-cloud-upload\"></i>上传</a></li>")
             else:
                 self.write("error")
+        elif m_cmd == "Config":
+            self.write(json.dumps(configRead.PageConfig()))
 
 def make_app():
     settings = {
@@ -98,7 +99,7 @@ def CheckDirFun(path, type):
             f.write('')
             f.close()
         if type == "dir":
-            os.makedirs(path) 
+            os.makedirs(path)
         isExists=os.path.exists(path)
         if not isExists:
             print(path+' 创建失败')

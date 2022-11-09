@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ static_url('index/index.css') }}">
     <link rel="stylesheet" href="{{ static_url('index/upload.css') }}">
     <script>
+
         var RequestInfo = "";
         var RequestUrl = "";
         var ImgUrl = "";
@@ -25,20 +26,31 @@
         var useCos = "";
         var Bucket = "";
         var region = "";
-        $.getJSON("{{ static_url('config.json') }}", function(data) {
-            //data 代表读取到的json中的数据
-            RequestInfo = data["url"];
-            document.title = data["title"];
-            useCos = data["useCos"];
-            console.log("useCos :" + useCos);
-            if(useCos == "true"){
+        console.log(window.location.href)
+        var ConfigFin = true;
+        $.ajax({
+            url: window.location.href + "ImgRequest",
+            data: {
+                cmd: "Config"
+            },
+            withCredentials: false,
+            type: "get",
+            success: function (res) {
+                var data = JSON.parse(res);
+                RequestInfo = data["url"];
+                document.title = data["title"];
+                useCos = data["useCos"];
+                console.log("useCos :" + useCos);
                 Bucket = data["Bucket"];
                 region = data["region"];
+                ConfigFin=false;
+                Init()
+                FirstQuest();
             }
-        });
+        })
+
         window.onload = function () {
-            Init()
-            FirstQuest();
+
         };
     </script>
 </head>

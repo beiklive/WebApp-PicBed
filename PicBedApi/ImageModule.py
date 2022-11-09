@@ -5,7 +5,9 @@ import time
 import random
 
 import ObjectCos
+import configRead
 # 程序启动时先读取一次文件列表
+
 FileList = []
 JsonList = []
 
@@ -14,16 +16,27 @@ def ReadConfig():
         config = json.load(f)
         return config['url']
 
-
+def UpdateFileList(filename):
+    global FileList
+    FileList += [filename]
 
 def LoadDir():
+    global FileList
     file_path = "./thumbnail"
-    dir_list = os.listdir(file_path)
-    dir_list = sorted(dir_list, key=lambda x: os.path.getmtime(os.path.join(file_path, x)))
-    print("sort finish")
+    dir_list = []
+    if len(FileList) == 0:
+        if (configRead.ReadElem("TXCos", "Active") != "false"):
+            dir_list = ObjectCos.LoadCosList()
+        else:
+            dir_list = os.listdir(file_path)
+            dir_list = sorted(dir_list, key=lambda x: os.path.getmtime(os.path.join(file_path, x)))
+    else:
+        dir_list = FileList;
+    print("Read FileList finish")
     return dir_list
 
 def PreLoad():
+    global FileList
     FileList = LoadDir()
 
 def SaveImgInfo(name):
@@ -50,7 +63,7 @@ def SaveImg(MainPath, name, get):
     with open(MainPath + name, 'wb') as f:
         f.write(img_data)
     ObjectCos.TxCosUpload(name, MainPath)
-    SaveImgInfo(name)
+    # SaveImgInfo(name)
     print(name + " save complete")
 
 def SaveThumb(MainPath, ThumbPath, name):
@@ -69,9 +82,11 @@ def SaveThumb(MainPath, ThumbPath, name):
     image_size = image.resize((w, h), Image.ANTIALIAS)
     image_size.save(ThumbPath + name)
     ObjectCos.TxCosUpload(name, ThumbPath)
-    FileList = LoadDir()
+    UpdateFileList(name)
+    # FileList = LoadDir()
 
 def ImgLoadCMD(self):
+    global FileList
     m_count = int(self.get_argument("count"))
     m_readyNum = int(self.get_argument("readyNum"))
     FileList = LoadDir()
@@ -85,21 +100,14 @@ def ImgLoadCMD(self):
         Imgid =  m_readyNum + i
         dataDict += [{"imgName" : FileList[Imgid], "index" : str(Imgid)}]
     ReturnDict = {"cmd" : "ImgLoad", "count" : str(m_sendcount), "data": dataDict}
-
-    print(ReturnDict)
+    # print(ReturnDict)
     self.write(json.dumps(ReturnDict))
 
 def GetRandom():
-    with open('ImgData.json', encoding='utf-8') as f:
-        line = f.read()
-        if line == '':
-            JsonList = {'ImageData': [{'Name': 'default', 'CreateTime': 'default', 'Tags': ['default'], 'url': 'default'}]}
-        else:
-            JsonList = json.loads(line)
-        f.close()
-    length = len(JsonList['ImageData'])
-    print(length)
+    Namelist = LoadDir()
+    length = len(Namelist)
+    # print(length)
     ran = random.randint(1,length - 1)
-    print(ran)
-    return ObjectCos.GetUrl() + JsonList['ImageData'][ran]['Name']
+    # print(ran)
+    return ObjectCos.GetUrl() + Namelist[ran]
 

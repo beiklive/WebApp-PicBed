@@ -1,0 +1,13 @@
+Server:
+  - WebSite: "http://10.245.68.242:8080"
+  - SiteTitle: "My Album"
+  - port: 8080
+
+Admin:
+  - UserName: "ohtoai"
+  - Passwd: "12345678"
+
+TXCos:
+  - Active: "true"  # true | auto | false
+  - Bucket: "beiklive-picbed-1-1306865739"
+  - region: "ap-nanjing"

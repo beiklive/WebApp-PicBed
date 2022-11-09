@@ -5,30 +5,31 @@ import sys
 import json
 import logging
 
+import configRead
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
 # 填写对象存储中的相关信息
-secret_id = 'xxxxxxx'
-secret_key = 'xxxxxxx'
-bucket = 'xxxxxxx'
-region = 'xxxxxxx'
+secret_id = configRead.ReadElem("TXCos", "secret_id")
+secret_key = configRead.ReadElem("TXCos", "secret_key")
+bucket = configRead.ReadElem("TXCos", "Bucket")
+region = configRead.ReadElem("TXCos", "region")
 
 
 
 token = None
 scheme = 'https'
+prefixName = 'imgSource/'
 
 config = CosConfig(Region=region, SecretId=secret_id, SecretKey=secret_key, Token=token, Scheme=scheme)
 client = CosS3Client(config)
 
 def ReadCosConfig():
-    with open('./templates/config.json', 'r') as f:
-        config = json.load(f)
-        return config['useCos']
+    return configRead.ReadElem("TXCos", "Active")
+
 
 
 def TxCosUpload(filename, path):
-    if ReadCosConfig():
+    if ReadCosConfig() == "true":
         print("start upload to Cos : " +path + filename)
         response = client.upload_file(
             Bucket=bucket,
@@ -41,7 +42,23 @@ def TxCosUpload(filename, path):
         print(response)
 
 def GetUrl():
-    return "https://"+ bucket +".cos."+ region +".myqcloud.com/imgSource/"
+    url = ''
+    if ReadCosConfig() == "true":
+        url = "https://"+ bucket +".cos."+ region +".myqcloud.com/imgSource/"
+    else:
+        url = configRead.ReadElem("Server", "WebSite")
+    return url
 
-
+def LoadCosList():
+    response = client.list_objects(
+        Bucket=bucket,
+        Prefix=prefixName
+    )
+    nameList=[]
+    for i in response.get('Contents'):
+        Name = i.get('Key')
+        if prefixName != Name:
+            Name = Name[len(prefixName) : ]
+            nameList += [Name]
+    return nameList
 
