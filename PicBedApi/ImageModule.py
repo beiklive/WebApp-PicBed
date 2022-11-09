@@ -27,11 +27,12 @@ def LoadDir():
     if len(FileList) == 0:
         if (configRead.ReadElem("TXCos", "Active") != "false"):
             dir_list = ObjectCos.LoadCosList()
+            dir_list = sorted(dir_list, key=str.lower)
         else:
             dir_list = os.listdir(file_path)
             dir_list = sorted(dir_list, key=lambda x: os.path.getmtime(os.path.join(file_path, x)))
     else:
-        dir_list = FileList;
+        dir_list = FileList
     print("Read FileList finish")
     return dir_list
 
@@ -111,3 +112,14 @@ def GetRandom():
     # print(ran)
     return ObjectCos.GetUrl() + "/" + Namelist[ran]
 
+def ImgDeleteCMD(self):
+    m_fileName = self.get_argument("name")
+    if (configRead.ReadElem("TXCos", "Active") != "false"):
+        ObjectCos.TxCosDelete("./imgSource/", m_fileName)
+        ObjectCos.TxCosDelete("./thumbnail/", m_fileName)
+    os.system("rm ./imgSource/" + m_fileName)
+    os.system("rm ./thumbnail/" + m_fileName)
+    FileList.remove(m_fileName)
+    ReturnDict = {"cmd" : "ImgDelete", "status" : "success"}
+    self.write(json.dumps(ReturnDict))
+                        

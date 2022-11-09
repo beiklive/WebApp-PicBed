@@ -36,6 +36,30 @@ function ImageClick(e) {
     </div>';
 }
 
+function TrashClick(e) {
+    var FileName = e.getAttribute("data-name");
+    // console.log("selected-index:" + index);
+    $.ajax({
+        url: window.location.href + "ImgRequest",
+        data: {
+            cmd: "ImgDelete",
+            name: FileName,
+        },
+        withCredentials: false,
+        type: "get",
+        success: function (res) {
+            // console.log("success");
+            var res_Json = JSON.parse(res);
+            if (res_Json["status"] == "success") {
+                alert("删除成功");
+                location.reload();
+            } else {
+                alert("删除失败");
+            }
+        }
+    })
+}
+
 //第一次加载请求数据
 function FirstQuest(params) {
     //计算当前页面的大小从而算出第一次要读多少个
@@ -74,8 +98,9 @@ function FirstQuest(params) {
                 let index = res_Json.data[j].index;
                 box.innerHTML =
                     box.innerHTML +
-                    '<div class="imgItem"  data-bs-toggle="modal" data-bs-target="#myModal2" onclick="ImageClick(this)" data-index=' + name +'>' +
-                        '<img src="' +thumbUrl + name +'">' +
+                    '<div class="imgItem">' +
+                        '<i class="fa fa-trash fa-2x" onclick="TrashClick(this)" data-name='+ name +'></i>' +
+                        '<img src="' +thumbUrl + name +'"  data-bs-toggle="modal" data-bs-target="#myModal2" onclick="ImageClick(this)" data-index=' + name +'>' +
                         '<marquee><span style="font-weight: bolder;font-size: 15px;color: white;">' +name +'</span></marquee>' +
                     '</div>';
 
@@ -118,8 +143,9 @@ function onceQuest(requestNum, readyNum) {
                 let index = res_Json.data[j].index;
                 box.innerHTML =
                     box.innerHTML +
-                    '<div class="imgItem"  data-bs-toggle="modal" data-bs-target="#myModal2" onclick="ImageClick(this)" data-index=' + name +'>' +
-                        '<img src="' +thumbUrl + name +'">' +
+                    '<div class="imgItem">' +
+                        '<i class="fa fa-trash fa-2x" onclick="TrashClick(this)" data-name='+ name +'></i>' +
+                        '<img src="' +thumbUrl + name +'"  data-bs-toggle="modal" data-bs-target="#myModal2" onclick="ImageClick(this)" data-index=' + name +'>' +
                         '<marquee><span style="font-weight: bolder;font-size: 15px;color: white;">' +name +'</span></marquee>' +
                     '</div>';
                 g_readyNum = g_readyNum + 1;
@@ -230,5 +256,4 @@ function delCookie(name) {
     if (cval != null)
         document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }
-
-
+  

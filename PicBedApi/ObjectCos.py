@@ -29,7 +29,7 @@ def ReadCosConfig():
 
 
 def TxCosUpload(filename, path):
-    if ReadCosConfig() == "true":
+    if ReadCosConfig() != "false":
         print("start upload to Cos : " +path + filename)
         response = client.upload_file(
             Bucket=bucket,
@@ -38,6 +38,15 @@ def TxCosUpload(filename, path):
             PartSize=1,
             MAXThread=10,
             EnableMD5=False
+        )
+        print(response)
+
+def TxCosDelete(prefix, filename):
+    if ReadCosConfig() != "false":
+        print("start delete to Cos : " +filename)
+        response = client.delete_object(
+            Bucket=bucket,
+            Key=prefix + filename
         )
         print(response)
 

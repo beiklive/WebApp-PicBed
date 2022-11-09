@@ -71,6 +71,8 @@ class ImgRequestHandler(tornado.web.RequestHandler):
                 self.write("error")
         elif m_cmd == "Config":
             self.write(json.dumps(configRead.PageConfig()))
+        elif m_cmd == "ImgDelete":
+            ImageModule.ImgDeleteCMD(self)
 
 def make_app():
     settings = {

@@ -119,7 +119,23 @@ body{
     
 }
 
+.imgItem i{
+    position: absolute;
+    color: #e95353;
+    /* line-height: 50px; */
+    text-shadow: inset 0px 0px 9px -1px #6cddff;
+    right: 5%;
+    top: -30%;
+    transition: 0.2s;
+    visibility: hidden;
+    z-index: 99999;
+}
 
+.imgItem:hover  i{
+    position: absolute;
+    top: 5%;
+    visibility:visible;
+}
 .imgItem marquee{
     position: absolute;
     background-color: rgba(228, 228, 228, 0.158);
@@ -213,3 +229,5 @@ body{
     }
 
 }
+
+
