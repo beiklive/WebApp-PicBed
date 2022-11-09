@@ -11,3 +11,5 @@ TXCos:
   - Active: "true"  # true | auto | false
   - Bucket: "beiklive-picbed-1-1306865739"
   - region: "ap-nanjing"
+  - secret_id: "xxxx"
+  - secret_key: 'xxxx'
