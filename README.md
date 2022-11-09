@@ -17,8 +17,7 @@
 `python >= 3.6`
 
 ```bash
-pip3 install tornado # web驱动
-pip3 install -U cos-python-sdk-v5   # https://cloud.tencent.com/document/product/436/12269
+source requirements.txt
 ```
 
 
