@@ -18,12 +18,15 @@ function Init() {
         ImgUrl = RequestInfo + "/img/";
         thumbUrl = RequestInfo + "/thumb/";
     }
-    // let getcook = getCookie("LoginData");
-    // if (getcook != null) {
-    //     let btn = document.getElementById("nav-func");
-    //     btn.innerHTML = getcook;
-    // }
-
+    let getcook = getCookie("LoginData");
+    if (getcook != null) {
+        let btn = document.getElementById("nav-func");
+        btn.innerHTML = getcook;
+    }
+    let gettoken = getCookie("Logintoken");
+    if (gettoken != null) {
+        token = gettoken;
+    }
 }
 
 function ImageClick(e) {
@@ -41,8 +44,14 @@ function DecodeRes(e){
     if(res["status"] == "success"){
         return res;
     }else if(res["status"] == "error"){
+        delCookie("LoginData");
+        delCookie("Logintoken");
+        location.reload();
         alert("请先登录");
     }else if(res["status"] == "expire"){
+        delCookie("LoginData");
+        delCookie("Logintoken");
+        location.reload();
         alert("登录已过期，请重新登录");
     }
     return false;
@@ -212,7 +221,8 @@ function LoginCheck() {
                 btn.innerHTML = mres["data"];
                 token = mres["sign"];
                 MyTips("success", "登录成功");
-                // setCookie("LoginData", res, "d30");
+                setCookie("LoginData", mres["data"], "d30");
+                setCookie("Logintoken", token, "d30");
             } else {
                 MyTips("danger", "登录失败，密码错误");
             }
