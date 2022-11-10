@@ -117,8 +117,8 @@ def ImgDeleteCMD(self):
     if (configRead.ReadElem("TXCos", "Active") != "false"):
         ObjectCos.TxCosDelete("./imgSource/", m_fileName)
         ObjectCos.TxCosDelete("./thumbnail/", m_fileName)
-    os.system("rm ./imgSource/" + m_fileName)
-    os.system("rm ./thumbnail/" + m_fileName)
+    os.remove("./imgSource/" + m_fileName)
+    os.remove("./thumbnail/" + m_fileName)
     FileList.remove(m_fileName)
     ReturnDict = {"cmd" : "ImgDelete", "status" : "success"}
     self.write(json.dumps(ReturnDict))
