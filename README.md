@@ -29,15 +29,18 @@ source requirements.txt
 
 1. 修改`WebApp-PicBed\PicBedApi\templates\config.json`
 
-    | Key    | Type     | Value                                                        |
-    | ------ | -------- | ------------------------------------------------------------ |
-    | url    | `string` | 启动后服务的地址，如：`http://picture.xxx.com `  或者   `127.0.0.1:8080` |
-    | title  | `string` | 网站标题栏名称                                               |
-    | port   | `number` | 服务的端口号                                                 |
-    | passwd | `string` | 默认进入服务是未登录状态，使用该密码登录                     |
-    | useCos | `string` | 是否使用腾讯云cos，为true时是使用，填写任意其他字符为不使用，会使用服务本地存储 |
-    | Bucket | `string` | 腾讯对象存储桶名称                                           |
-    | region | `string` | 存储桶所属地区如： `ap-beijing`                              |
+    | Key        | Type     | Value                                                        |
+    | ---------- | -------- | ------------------------------------------------------------ |
+    | WebSite    | `string` | 启动后服务的地址，如：`http://picture.xxx.com `  或者   `127.0.0.1:8080` |
+    | SiteTitle  | `string` | 网站标题栏名称                                               |
+    | port       | `number` | 服务的端口号                                                 |
+    | UserName   | `string` | 用户名                                                       |
+    | Passwd     | `string` | 默认进入服务是未登录状态，使用该密码登录                     |
+    | Active     | `string` | `true`  原图与略缩图都从腾讯云cos获取<br>`auto` 略缩图从服务本地获取，原图从腾讯云cos获取，减少腾讯云cos的请求次数<br>`false` 全部使用服务本地图片 |
+    | Bucket     | `string` | 腾讯对象存储桶名称                                           |
+    | region     | `string` | 存储桶所属地区如： `ap-beijing`                              |
+    | secret_id  | `string` | 使用对象存储时填写，从腾讯云控制台获取                       |
+    | secret_key | `string` | 使用对象存储时填写，从腾讯云控制台获取                       |
 
 2. 修改log图标
 
@@ -76,6 +79,6 @@ source requirements.txt
 
 ​			http://img.example.com/redirect?type=random
 
-- [ ] 登录（目前的登录没有安全性可言）
-- [ ] 删除图片
+- [x] 登录
+- [x] 删除图片
 - [ ] GitPage托管
