@@ -1,4 +1,5 @@
 var fileList = [];
+box = document.getElementById("ViewBox");
 var progressValue = {
     value: 0,
     max: 0,

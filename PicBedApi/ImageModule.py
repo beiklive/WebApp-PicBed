@@ -114,16 +114,15 @@ def GetRandom():
 
 def ImgDeleteCMD(self):
     m_fileName = self.get_argument("name")
-    imgPath = "./imgSource/", m_fileName
-    thumbPath = "./thumbnail/", m_fileName
+    imgPath = "./imgSource/" + m_fileName
+    thumbPath = "./thumbnail/" + m_fileName
     if (configRead.ReadElem("TXCos", "Active") != "false"):
         ObjectCos.TxCosDelete(imgPath)
         ObjectCos.TxCosDelete(thumbPath)
-    if(os.path.isfile(imgPath))
+    if(os.path.isfile(imgPath)):
         os.remove(imgPath)
-    if(os.path.isfile(thumbPath))
+    if(os.path.isfile(thumbPath)):
         os.remove(thumbPath)
     FileList.remove(m_fileName)
     ReturnDict = {"cmd" : "ImgDelete", "status" : "success"}
-    self.write(json.dumps(ReturnDict))
-                        
+    return ReturnDict

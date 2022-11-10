@@ -3,6 +3,7 @@ var ItemHeight = 200; //格子高度
 
 var requestNum = 30;
 var g_readyNum = 0;
+var token = " ";
 
 function Init() {
     RequestUrl = RequestInfo + "/ImgRequest";
@@ -17,11 +18,11 @@ function Init() {
         ImgUrl = RequestInfo + "/img/";
         thumbUrl = RequestInfo + "/thumb/";
     }
-    let getcook = getCookie("LoginData");
-    if (getcook != null) {
-        let btn = document.getElementById("nav-func");
-        btn.innerHTML = getcook;
-    }
+    // let getcook = getCookie("LoginData");
+    // if (getcook != null) {
+    //     let btn = document.getElementById("nav-func");
+    //     btn.innerHTML = getcook;
+    // }
 
 }
 
@@ -35,7 +36,17 @@ function ImageClick(e) {
     <img src="' + ImgUrl + index + '">\
     </div>';
 }
-
+function DecodeRes(e){
+    var res = JSON.parse(e);
+    if(res["status"] == "success"){
+        return res;
+    }else if(res["status"] == "error"){
+        alert("请先登录");
+    }else if(res["status"] == "expire"){
+        alert("登录已过期，请重新登录");
+    }
+    return false;
+}
 function TrashClick(e) {
     var FileName = e.getAttribute("data-name");
     // console.log("selected-index:" + index);
@@ -44,17 +55,22 @@ function TrashClick(e) {
         data: {
             cmd: "ImgDelete",
             name: FileName,
+            sign: token,
         },
         withCredentials: false,
         type: "get",
         success: function (res) {
             // console.log("success");
-            var res_Json = JSON.parse(res);
-            if (res_Json["status"] == "success") {
-                alert("删除成功");
-                location.reload();
-            } else {
-                alert("删除失败");
+            let mres = DecodeRes(res)
+            if (mres != false) {
+                res_Json = mres["data"];
+                console.log(res_Json);
+                if (res_Json["status"] == "success") {
+                    alert("删除成功");
+                    location.reload();
+                } else {
+                    alert("删除失败");
+                }
             }
         }
     })
@@ -67,7 +83,7 @@ function FirstQuest(params) {
     var box = document.getElementById("ViewBox");
     var clientHeight = box.clientHeight; // 界面高度
     var clientWidth = box.clientWidth; //界面宽度
-
+    box.innerHTML = "";
     if (clientHeight <= 700) {
         ItemHeight = 130;
     } else {
@@ -137,7 +153,7 @@ function onceQuest(requestNum, readyNum) {
         success: function (res) {
             // console.log("success");
             var res_Json = JSON.parse(res);
-            // // console.log(res_Json.data)
+            console.log(res_Json.data)
             for (var j = 0; j < res_Json.count; j++) {
                 let name = res_Json.data[j].imgName;
                 let index = res_Json.data[j].index;
@@ -175,6 +191,8 @@ function srollformat() {
     }
 }
 
+
+
 function LoginCheck() {
     let password = document.getElementById("LoginPW").value;
     // 发送get请求
@@ -183,17 +201,18 @@ function LoginCheck() {
         data: {
             cmd: "Login",
             pw: password,
+            sign: token,
         },
         withCredentials: false,
         type: "get",
         success: function (res) {
-            // console.log("success");
-            // console.log(res);
-            if (res != "error") {
+            let mres = DecodeRes(res)
+            if (mres != false) {
                 let btn = document.getElementById("nav-func");
-                btn.innerHTML = res;
+                btn.innerHTML = mres["data"];
+                token = mres["sign"];
                 MyTips("success", "登录成功");
-                setCookie("LoginData", res, "d30");
+                // setCookie("LoginData", res, "d30");
             } else {
                 MyTips("danger", "登录失败，密码错误");
             }
@@ -256,4 +275,3 @@ function delCookie(name) {
     if (cval != null)
         document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }
-  

@@ -41,12 +41,12 @@ def TxCosUpload(filename, path):
         )
         print(response)
 
-def TxCosDelete(prefix, filename):
+def TxCosDelete(filename):
     if ReadCosConfig() != "false":
         print("start delete to Cos : " +filename)
         response = client.delete_object(
             Bucket=bucket,
-            Key=prefix + filename
+            Key=filename
         )
         print(response)
 
