@@ -27,7 +27,7 @@ source requirements.txt
 
 ## 初始配置修改（必须修改！！！）
 
-1. 修改`WebApp-PicBed\PicBedApi\templates\config.json`
+1. 修改`config.yml`
 
     | Key        | Type     | Value                                                        |
     | ---------- | -------- | ------------------------------------------------------------ |
