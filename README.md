@@ -1,5 +1,8 @@
 # WebApp-PicBed
 # 在线相册服务
+
+![Alt](https://repobeats.axiom.co/api/embed/c9d3ba2f9aa90b8e25786691e17054d4f35a93f1.svg "Repobeats analytics image")
+
 # 介绍
 一个简易的相册系统，更多功能后续再开发
 
@@ -7,7 +10,7 @@
 
 主旨： 开箱即用，不需要过多的环境和配置
 
-![Alt](https://repobeats.axiom.co/api/embed/c9d3ba2f9aa90b8e25786691e17054d4f35a93f1.svg "Repobeats analytics image")
+
 
 
 # 使用
