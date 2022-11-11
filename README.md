@@ -73,9 +73,7 @@ source requirements.txt
 # 功能
 - [x] 图片上传
 - [x] 随机图片： url + `/redirect?type=random`
-
 ​			http://img.example.com/redirect?type=random
-
 - [x] 登录
 - [x] 删除图片
 - [ ] GitPage托管
