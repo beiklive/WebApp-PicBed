@@ -94,25 +94,28 @@ function submit() {
             data: {
                 type: typename,
                 base64file: base64Str,
+                sign: token,
             },
             withCredentials: false,
             type: "post",
             success: function (res) {
-                // console.log("success");
-                if (res == "complete") {
-                    progressValue.value += 1;
-                    setProcess(parseInt((progressValue.value / progressValue.max) * 100));
-                }
-                console.log("progressValue.value : " + progressValue.value)
-                console.log("progressValue.max : " + progressValue.max)
-                if (progressValue.value == progressValue.max) {
-                    MyTips("success", "上传完成");
-                    var box = document.getElementById("imgdragbox");
-                    box.innerHTML = " ";
-                    // setProcess(0);
+                let mres = DecodeRes(res)
+                if (mres != false) {
+                    if (mres['data'] == "complete") {
+                        progressValue.value += 1;
+                        setProcess(parseInt((progressValue.value / progressValue.max) * 100));
+                    }
+                    console.log("progressValue.value : " + progressValue.value)
+                    console.log("progressValue.max : " + progressValue.max)
+                    if (progressValue.value == progressValue.max) {
+                        MyTips("success", "上传完成");
+                        var box = document.getElementById("imgdragbox");
+                        box.innerHTML = " ";
+                        // setProcess(0);
 
-                    //清空上传列表
-                    fileList = [];
+                        //清空上传列表
+                        fileList = [];
+                    }
                 }
             },
         });

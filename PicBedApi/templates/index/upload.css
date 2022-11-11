@@ -215,3 +215,21 @@ meter::-webkit-meter-even-less-good-value {
     width: 0px;     /*高宽分别对应横竖滚动条的尺寸*/
     height: 1px;
 }
+
+@media screen and ( max-width: 700px ) {
+
+    .boximg{
+        width: var(--small-item-size);
+        height: var(--small-item-size);
+    }
+
+    .boximg img{
+        max-width: var(--small-item-size);
+        max-height: var(--small-item-size);
+    }
+
+    .dragbox{
+        grid-template-columns: repeat(auto-fill, var(--small-item-size));
+        grid-template-rows: repeat(auto-fill, var(--small-item-size));
+    }
+}

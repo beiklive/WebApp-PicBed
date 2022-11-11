@@ -35,9 +35,10 @@ function ImageClick(e) {
 
     var up = document.getElementById("uppp");
     up.innerHTML =
-        '<div class="bigPic">\
-    <img src="' + ImgUrl + index + '">\
-    </div>';
+        '<div class="bigPic" >' +
+        '<img src="' + ImgUrl + index + '">'+
+        '<div data-bs-dismiss="modal"></div>'+
+    '</div>';
 }
 function DecodeRes(e){
     var res = JSON.parse(e);
@@ -162,7 +163,7 @@ function onceQuest(requestNum, readyNum) {
         success: function (res) {
             // console.log("success");
             var res_Json = JSON.parse(res);
-            console.log(res_Json.data)
+            // console.log(res_Json.data)
             for (var j = 0; j < res_Json.count; j++) {
                 let name = res_Json.data[j].imgName;
                 let index = res_Json.data[j].index;
