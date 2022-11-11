@@ -1,5 +1,5 @@
 # WebApp-PicBed
-# 在线相册服务
+# 在线相册
 
 ![Alt](https://repobeats.axiom.co/api/embed/c9d3ba2f9aa90b8e25786691e17054d4f35a93f1.svg "Repobeats analytics image")
 
