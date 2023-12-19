@@ -80,7 +80,7 @@ def SaveThumb(MainPath, ThumbPath, name):
             h = ImgSize
     h = int(h)
     w = int(w)
-    image_size = image.resize((w, h), Image.ANTIALIAS)
+    image_size = image.resize((w, h), Image.LANCZOS)
     image_size.save(ThumbPath + name)
     ObjectCos.TxCosUpload(name, ThumbPath)
     UpdateFileList(name)
