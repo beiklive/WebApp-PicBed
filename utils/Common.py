@@ -10,7 +10,7 @@ class StatusCode(Enum):
 
 class CommandCode(Enum):
     # Command codes
-    CMD_FILE = 0
+    CMD_TEST = 0
     CMD_SETTING = 1
     CMD_DOWNLOAD = 2
     CMD_UPLOAD = 3

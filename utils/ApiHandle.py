@@ -1,4 +1,4 @@
-import .Common
+from . import Common
 
 class ApiHandle:
     def __init__(self):
@@ -6,13 +6,10 @@ class ApiHandle:
         pass
 
     def Process(self, request):
-        self.get_command(request)
-        
+        ret = int(self.get_command(request))
 
-
-
-        if int(self._command) == "1":
-            return self.get(Common.API_URL, request.query_arguments)
+        if int(self._command) == Common.CommandCode.CMD_TEST:
+            return "CMD_TEST"
         elif self._command == "2":
             return self.post(Common.API_URL, request.body_arguments)
         else:
@@ -23,7 +20,7 @@ class ApiHandle:
         return self._command
     
     def get(self, url, params):
-        return self.api.get(url, params)
+        return self.Process(self, params)
 
     def post(self, url, data):
         return self.api.post(url, data)
