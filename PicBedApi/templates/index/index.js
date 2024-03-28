@@ -11,9 +11,9 @@ function Init() {
     if (useCos == "true") {
         ImgUrl = "https://" + Bucket + ".cos." + region + ".myqcloud.com/imgSource/";
         thumbUrl = "https://" + Bucket + ".cos." + region + ".myqcloud.com/thumbnail/";
-    } else if(useCos == "auto"){
-        ImgUrl = "https://" + Bucket + ".cos." + region + ".myqcloud.com/imgSource/";
-        thumbUrl = RequestInfo + "/thumb/";
+    } else if(useGitee == "true"){
+         ImgUrl = "https://gitee.com/" + repoOwner + "/" + repoName + "/raw/master/" + folderPath + "/";
+         thumbUrl = "https:////gitee.com/" + repoOwner + "/" + repoName + "/raw/master/" + folderPath + "/";
     } else{
         ImgUrl = RequestInfo + "/img/";
         thumbUrl = RequestInfo + "/thumb/";
