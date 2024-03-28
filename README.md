@@ -24,18 +24,22 @@ source requirements.txt
 
 1. 修改`config.yml`
 
-    | Key        | Type     | Value                                                        |
-    | ---------- | -------- | ------------------------------------------------------------ |
-    | WebSite    | `string` | 启动后服务的地址，如：`http://picture.xxx.com `  或者   `127.0.0.1:8080` |
-    | SiteTitle  | `string` | 网站标题栏名称                                               |
-    | port       | `number` | 服务的端口号                                                 |
-    | UserName   | `string` | 用户名                                                       |
-    | Passwd     | `string` | 默认进入服务是未登录状态，使用该密码登录                     |
+    | Key        | Type     | Value                                                                                         |
+    | ---------- | -------- |-----------------------------------------------------------------------------------------------|
+    | WebSite    | `string` | 启动后服务的地址，如：`http://picture.xxx.com `  或者   `127.0.0.1:8080`                                   |
+    | SiteTitle  | `string` | 网站标题栏名称                                                                                       |
+    | port       | `number` | 服务的端口号                                                                                        |
+    | UserName   | `string` | 用户名                                                                                           |
+    | Passwd     | `string` | 默认进入服务是未登录状态，使用该密码登录                                                                          |
     | Active     | `string` | `true`  原图与略缩图都从腾讯云cos获取<br>`auto` 略缩图从服务本地获取，原图从腾讯云cos获取，减少腾讯云cos的请求次数<br>`false` 全部使用服务本地图片 |
-    | Bucket     | `string` | 腾讯对象存储桶名称                                           |
-    | region     | `string` | 存储桶所属地区如： `ap-beijing`                              |
-    | secret_id  | `string` | 使用对象存储时填写，从腾讯云控制台获取                       |
-    | secret_key | `string` | 使用对象存储时填写，从腾讯云控制台获取                       |
+    | Bucket     | `string` | 腾讯对象存储桶名称                                                                                     |
+    | region     | `string` | 存储桶所属地区如： `ap-beijing`                                                                        |
+    | secret_id  | `string` | 使用对象存储时填写，从腾讯云控制台获取                                                                           |
+    | secret_key | `string` | 使用对象存储时填写，从腾讯云控制台获取                                                                           |
+    | repoOwner | `string` | 使用gitee仓库存储时填写,gitee仓库拥有者                                                                     |
+    | repoName | `string` | 使用gitee仓库存储时填写,gitee仓库名                                                                       |
+    | apiToken | `string` | 使用gitee仓库存储时填写,gitee仓库令牌 需在gitee仓库生成                                                          |
+    | folderPath | `string` | 使用gitee仓库存储时填写,需要存储在仓库下的某个文件夹的路径                                                              |
 
 2. 修改log图标
 

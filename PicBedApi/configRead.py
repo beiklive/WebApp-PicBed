@@ -1,5 +1,4 @@
 import yaml
-import os
 
 ConfigPath='../config.yml'
 
@@ -19,7 +18,16 @@ def PageConfig():
     museCos = ReadElem("TXCos", "Active")
     mBucket = ReadElem("TXCos", "Bucket")
     mRegion = ReadElem("TXCos", "region")
-    ReturnDict = {"url": mUrl, "title" : mTitle, "useCos" : museCos, "Bucket" : mBucket, "region": mRegion}
+
+    mRepoOwner = ReadElem("Gitee", "repoOwner")
+    mRepoName = ReadElem("Gitee", "repoName")
+    museGitee = ReadElem("Gitee", "Active")
+    folderPath = ReadElem("Gitee", "folderPath")
+    apiToken = ReadElem("Gitee", "apiToken")
+
+    ReturnDict = {"url": mUrl, "title": mTitle, "useCos": museCos, "Bucket": mBucket, "region": mRegion,
+                  "repoOwner": mRepoOwner, "repoName": mRepoName, "useGitee": museGitee, "folderPath": folderPath,
+                  "apiToken": apiToken}
     print("return ReturnDict")
     return ReturnDict
 

@@ -6,6 +6,7 @@ import random
 
 import ObjectCos
 import configRead
+import ObjectGiteeApi
 # 程序启动时先读取一次文件列表
 
 FileList = []
@@ -25,8 +26,16 @@ def LoadDir():
     file_path = "./thumbnail"
     dir_list = []
     if len(FileList) == 0:
-        if (configRead.ReadElem("TXCos", "Active") != "false"):
+        flagTXCos = configRead.ReadElem("TXCos", "Active")
+        flagGitee = configRead.ReadElem("Gitee", "Active")
+        if(flagTXCos == "true" and flagGitee == "true"):
+            raise Exception("TXCos和Gitee 不允许同时为true")
+
+        if (flagTXCos == "true"):
             dir_list = ObjectCos.LoadCosList()
+            dir_list = sorted(dir_list, key=str.lower)
+        elif (flagGitee == "true"):
+            dir_list = ObjectGiteeApi.LoadDirList()
             dir_list = sorted(dir_list, key=str.lower)
         else:
             dir_list = os.listdir(file_path)
@@ -34,6 +43,7 @@ def LoadDir():
     else:
         dir_list = FileList
     print("Read FileList finish")
+    print(dir_list)
     return dir_list
 
 def PreLoad():
@@ -63,8 +73,13 @@ def SaveImg(MainPath, name, get):
     img_data = base64.b64decode(get)
     with open(MainPath + name, 'wb') as f:
         f.write(img_data)
-    ObjectCos.TxCosUpload(name, MainPath)
-    # SaveImgInfo(name)
+
+    if (configRead.ReadElem("TXCos", "Active") != "false"):
+        ObjectCos.TxCosUpload(name, MainPath)
+        # SaveImgInfo(name)
+    elif (configRead.ReadElem("Gitee", "Active") != "false"):
+        ObjectGiteeApi.GiteeUpload(MainPath,name)
+
     print(name + " save complete")
 
 def SaveThumb(MainPath, ThumbPath, name):
@@ -114,15 +129,22 @@ def GetRandom():
 
 def ImgDeleteCMD(self):
     m_fileName = self.get_argument("name")
+
     imgPath = "./imgSource/" + m_fileName
     thumbPath = "./thumbnail/" + m_fileName
+
     if (configRead.ReadElem("TXCos", "Active") != "false"):
         ObjectCos.TxCosDelete(imgPath)
         ObjectCos.TxCosDelete(thumbPath)
+
+    elif (configRead.ReadElem("Gitee", "Active") != "false"):
+        ObjectGiteeApi.GiteeDelete(m_fileName)
+
     if(os.path.isfile(imgPath)):
         os.remove(imgPath)
     if(os.path.isfile(thumbPath)):
         os.remove(thumbPath)
+
     FileList.remove(m_fileName)
     ReturnDict = {"cmd" : "ImgDelete", "status" : "success"}
     return ReturnDict

@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
     <title>beik图床</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{ static_url('Resource/logo.png') }}" />
@@ -27,6 +28,10 @@
         var useCos = "";
         var Bucket = "";
         var region = "";
+        var repoOwner = "";
+        var repoName = "";
+        var useGitee = "";
+        var folderPath = "";
         console.log(window.location.href)
         var ConfigFin = true;
         $.ajax({
@@ -44,6 +49,10 @@
                 console.log("useCos :" + useCos);
                 Bucket = data["Bucket"];
                 region = data["region"];
+                repoOwner = data["repoOwner"];
+                repoName = data["repoName"];
+                useGitee = data["useGitee"];
+                folderPath = data["folderPath"];
                 ConfigFin=false;
                 Init()
                 FirstQuest();

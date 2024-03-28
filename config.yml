@@ -1,5 +1,6 @@
 Server:
-  - WebSite: "http://10.245.68.242:8080"
+#  - WebSite: "http://10.245.68.242:8080"
+  - WebSite: "http://192.168.10.7:8080"
   - SiteTitle: "My Album"
   - port: 8080
 
@@ -7,9 +8,18 @@ Admin:
   - UserName: "ohtoai"
   - Passwd: "12345678"
 
+# TXCos和 Gitee 不允许同时使用 请选择其中一个为ture
+
 TXCos:
-  - Active: "true"  # true | auto | false
+  - Active: "false"  # true | false
   - Bucket: "beiklive-picbed-1-1306865739"
   - region: "ap-nanjing"
   - secret_id: "xxxx"
   - secret_key: 'xxxx'
+
+Gitee:
+  - Active: "true"  # true  | false
+  - repoOwner: "xxx"  #gitee用户名
+  - repoName: "xxx"   #仓库名
+  - apiToken: "xxx"   #仓库令牌 在仓库中创建
+  - folderPath: "xxx"   #仓库中图片存储路径 到文件夹 例如 'img'
