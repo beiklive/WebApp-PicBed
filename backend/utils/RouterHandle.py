@@ -1,6 +1,5 @@
 import tornado.web
 import tornado.ioloop
-from . import ApiHandle
 
 '''
 API Command define
